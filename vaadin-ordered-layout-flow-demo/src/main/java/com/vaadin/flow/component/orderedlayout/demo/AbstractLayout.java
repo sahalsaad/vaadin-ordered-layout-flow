@@ -19,10 +19,12 @@ import java.util.Optional;
 import java.util.function.Consumer;
 
 import com.vaadin.flow.component.Component;
+import com.vaadin.flow.component.HasElement;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.orderedlayout.BoxSizing;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.ThemableLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
@@ -90,6 +92,41 @@ public abstract class AbstractLayout extends DemoView {
         button.setId(id);
         button.addClickListener(event -> layout
                 .setDefaultHorizontalComponentAlignment(alignment));
+        return button;
+    }
+
+    protected Component createAlignmentContentButton(FlexLayout layout, String id,
+                                                     FlexLayout.ContentAlignment alignment) {
+        NativeButton button = new NativeButton(alignment.name());
+        button.setId(id);
+        button.addClickListener(event -> layout
+                .setAlignContent(alignment));
+        return button;
+    }
+
+    protected Component createFlexBasisButton(FlexLayout layout, String id, String width, HasElement element) {
+        NativeButton button = new NativeButton(width);
+        button.setId(id);
+        button.addClickListener(event -> layout
+                .setFlexBasis(width, element));
+        return button;
+    }
+
+    protected Component createFlexDirectionButton(FlexLayout layout, String id,
+                                                     FlexLayout.FlexDirection flexDirection) {
+        NativeButton button = new NativeButton(flexDirection.name());
+        button.setId(id);
+        button.addClickListener(event -> layout
+                .setFlexDirection(flexDirection));
+        return button;
+    }
+
+    protected Component createFlexShrinkButton(FlexLayout layout, String id,
+                                                  double shrink, HasElement element) {
+        NativeButton button = new NativeButton(String.valueOf(shrink));
+        button.setId(id);
+        button.addClickListener(event -> layout
+                .setFlexShrink(shrink, element));
         return button;
     }
 

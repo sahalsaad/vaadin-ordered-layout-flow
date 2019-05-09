@@ -36,6 +36,61 @@ public class FlexLayout extends Component
         implements FlexComponent<FlexLayout>, ClickNotifier<FlexLayout> {
 
     /**
+     * Enum with the possible values for the component alignment inside the
+     * layout. It correlates to the <code>align-items</code> CSS property.
+     */
+    public enum ContentAlignment {
+
+        /**
+         * Items are positioned at the beginning of the container.
+         */
+        START("flex-start"),
+
+        /**
+         * Items are positioned at the end of the container.
+         */
+        END("flex-end"),
+
+        /**
+         * Items are positioned at the center of the container.
+         */
+        CENTER("center"),
+
+        /**
+         * Items are stretched to fit the container.
+         */
+        STRETCH("stretch"),
+
+        /**
+         * Items are distributed evenly inside the container.
+         * The first item is flush with the start, the last is flush with the end.
+         */
+        SPACE_BETWEEN("space-between"),
+
+        /**
+         * Items are distributed evenly inside the container.
+         * Items have a half-size space on either end.
+         */
+        SPACE_AROUND("space-around");
+
+        private final String flexValue;
+
+        ContentAlignment(String flexValue) {
+            this.flexValue = flexValue;
+        }
+
+        String getFlexValue() {
+            return flexValue;
+        }
+
+        static ContentAlignment toAlignment(String flexValue, ContentAlignment defaultValue) {
+            return Arrays.stream(values()).filter(
+                    alignment -> alignment.getFlexValue().equals(flexValue))
+                    .findFirst().orElse(defaultValue);
+        }
+    }
+
+    /**
      * Possible values for the {@code flex-wrap} CSS property, which determines how the elements inside the layout
      * should behave when they don't fit inside the layout.
      */
@@ -127,6 +182,42 @@ public class FlexLayout extends Component
                 getElement().getStyle()
                         .get(FlexConstants.FLEX_WRAP_CSS_PROPERTY),
                 WrapMode.NOWRAP);
+    }
+
+    /**
+     * Similar to {@link #setAlignItems(Alignment)}, but instead of aligning
+     * components, it aligns flex lines.
+     * <p>
+     * It effectively sets the {@code "alignContent"} style value.
+     * <p>
+     * The default alignment is {@link ContentAlignment#STRETCH}.
+     *
+     * @param alignment
+     *            the alignment to apply to the components. Setting
+     *            <code>null</code> will reset the alignment to its default
+     */
+    public void setAlignContent(ContentAlignment alignment) {
+        if (alignment == null) {
+            getStyle().remove(
+                    FlexConstants.ALIGN_CONTENT_CSS_PROPERTY);
+        } else {
+            getStyle().set(
+                    FlexConstants.ALIGN_CONTENT_CSS_PROPERTY,
+                    alignment.getFlexValue());
+        }
+    }
+
+    /**
+     * Gets the current align content property of the layout.
+     *
+     * @return the align content property,
+     *         or {@link ContentAlignment#STRETCH} if none was set
+     */
+    public ContentAlignment getAlignContent() {
+        return ContentAlignment.toAlignment(
+                getElement().getStyle()
+                        .get(FlexConstants.ALIGN_CONTENT_CSS_PROPERTY),
+                ContentAlignment.STRETCH);
     }
 
 }

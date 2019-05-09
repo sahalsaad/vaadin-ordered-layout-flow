@@ -20,6 +20,7 @@ import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.Label;
 import com.vaadin.flow.component.orderedlayout.BoxSizing;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
+import com.vaadin.flow.component.orderedlayout.FlexLayout;
 import com.vaadin.flow.component.orderedlayout.HorizontalLayout;
 import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
@@ -54,6 +55,158 @@ public class OrderedLayoutView extends AbstractLayout {
         createVerticalLayoutWithCenterComponent();
         createVerticalLayoutWithBoxSizing();
         createVerticalLayoutWithExpandingContent();
+
+        createFlexLayoutWithAlignmentContent();
+        createFlexLayoutWithFlexBasis();
+        createFlexLayoutWithFlexDirection();
+        createFlexLayoutWithFlexShrink();
+        createFlexLayoutWithOrderedItems();
+    }
+
+    /* FlexLayout demos */
+
+    private void createFlexLayoutWithAlignmentContent() {
+        // begin-source-example
+        // source-example-heading: FlexLayout with alignment content
+        FlexLayout layout = new FlexLayout();
+        layout.setWidth("130px");
+        layout.setHeight("150px");
+        layout.getStyle().set("border", "1px solid #9E9E9E");
+        layout.setWrapMode(FlexLayout.WrapMode.WRAP);
+
+        Component component1 = createComponent(1, "#78909C");
+        Component component2 = createComponent(2, "#546E7A");
+        Component component3 = createComponent(3, "#37474F");
+
+        layout.add(component1, component2, component3);
+        // end-source-example
+
+        Div buttons = new Div();
+        buttons.add(createAlignmentContentButton(layout, "align-start-button",
+                FlexLayout.ContentAlignment.START));
+        buttons.add(createAlignmentContentButton(layout, "align-end-button",
+                FlexLayout.ContentAlignment.END));
+        buttons.add(createAlignmentContentButton(layout, "align-center-button",
+                FlexLayout.ContentAlignment.CENTER));
+        buttons.add(createAlignmentContentButton(layout, "align-stretch-button",
+                FlexLayout.ContentAlignment.STRETCH));
+        buttons.add(createAlignmentContentButton(layout, "align-space-around-button",
+                FlexLayout.ContentAlignment.SPACE_AROUND));
+        buttons.add(createAlignmentContentButton(layout, "align-space-between-button",
+                FlexLayout.ContentAlignment.SPACE_BETWEEN));
+
+        layout.setId("flex-layout-with-alignment-content");
+
+        addCard("FlexLayout", "FlexLayout with alignment content",
+                layout, buttons);
+    }
+
+    private void createFlexLayoutWithFlexBasis() {
+        // begin-source-example
+        // source-example-heading: FlexLayout with flex basis
+        FlexLayout layout = new FlexLayout();
+        layout.setWidth("100%");
+        layout.setHeight("50px");
+        layout.getStyle().set("border", "1px solid #9E9E9E");
+
+        Component component1 = createComponent(1, "#78909C");
+        Component component2 = createComponent(2, "#546E7A");
+        Component component3 = createComponent(3, "#37474F");
+
+        layout.add(component1, component2, component3);
+        // end-source-example
+
+        Div buttons = new Div();
+        buttons.add(createFlexBasisButton(layout, "pixel-size-button", "200px", component1));
+        buttons.add(createFlexBasisButton(layout, "percentage-size-button", "100%", component1));
+        buttons.add(createFlexBasisButton(layout, "auto-button", "auto", component1));
+
+        layout.setId("flex-layout-with-flex-basis");
+
+        addCard("FlexLayout", "FlexLayout with flex basis",
+                layout, buttons);
+    }
+
+    private void createFlexLayoutWithFlexDirection() {
+        // begin-source-example
+        // source-example-heading: FlexLayout with flex direction
+        FlexLayout layout = new FlexLayout();
+        layout.setWidth("100%");
+        layout.setHeight("150px");
+        layout.getStyle().set("border", "1px solid #9E9E9E");
+
+        Component component1 = createComponent(1, "#78909C");
+        Component component2 = createComponent(2, "#546E7A");
+        Component component3 = createComponent(3, "#37474F");
+
+        layout.add(component1, component2, component3);
+        // end-source-example
+
+        Div buttons = new Div();
+        buttons.add(createFlexDirectionButton(layout, "direction-column-button",
+                FlexComponent.FlexDirection.COLUMN));
+        buttons.add(createFlexDirectionButton(layout, "direction-column-reverse-button",
+                FlexComponent.FlexDirection.COLUMN_REVERSE));
+        buttons.add(createFlexDirectionButton(layout, "direction-row-button",
+                FlexComponent.FlexDirection.ROW));
+        buttons.add(createFlexDirectionButton(layout, "direction-row-reverse-button",
+                FlexComponent.FlexDirection.ROW_REVERSE));
+
+        layout.setId("flex-layout-with-flex-direction");
+
+        addCard("FlexLayout", "FlexLayout with flex direction",
+                layout, buttons);
+    }
+
+    private void createFlexLayoutWithFlexShrink() {
+        // begin-source-example
+        // source-example-heading: FlexLayout with flex shrink
+        FlexLayout layout = new FlexLayout();
+        layout.setWidth("100%");
+        layout.setHeight("50px");
+        layout.getStyle().set("border", "1px solid #9E9E9E");
+
+        Component component1 = createComponent(1, "#78909C");
+        Component component2 = createComponent(2, "#546E7A");
+        Component component3 = createComponent(3, "#37474F");
+
+        layout.setFlexBasis("300px", component1, component2, component3);
+        layout.add(component1, component2, component3);
+        // end-source-example
+
+        Div buttons = new Div();
+        buttons.add(createFlexShrinkButton(layout, "shrink-zero-button", 0, component1));
+        buttons.add(createFlexShrinkButton(layout, "shrink-one-button", 1, component1));
+        buttons.add(createFlexShrinkButton(layout, "shrink-two-button", 2, component1));
+
+        layout.setId("flex-layout-with-flex-shrink");
+
+        addCard("FlexLayout", "FlexLayout with flex shrink",
+                layout, buttons);
+    }
+
+    private void createFlexLayoutWithOrderedItems() {
+        // begin-source-example
+        // source-example-heading: FlexLayout with ordered items
+        FlexLayout layout = new FlexLayout();
+        layout.setWidth("100%");
+        layout.setHeight("50px");
+        layout.getStyle().set("border", "1px solid #9E9E9E");
+
+        Component component1 = createComponent(1, "#78909C");
+        Component component2 = createComponent(2, "#546E7A");
+        Component component3 = createComponent(3, "#37474F");
+
+        layout.add(component1, component2, component3);
+
+        layout.setOrder(0, component3);
+        layout.setOrder(1, component1);
+        layout.setOrder(2, component2);
+        // end-source-example
+
+        layout.setId("flex-layout-with-ordered-items");
+
+        addCard("FlexLayout", "FlexLayout with ordered items", layout);
     }
 
     /* HorizontalLayout demos */
