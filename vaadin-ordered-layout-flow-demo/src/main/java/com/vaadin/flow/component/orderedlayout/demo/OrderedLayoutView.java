@@ -170,7 +170,7 @@ public class OrderedLayoutView extends AbstractLayout {
         Component component2 = createComponent(2, "#546E7A");
         Component component3 = createComponent(3, "#37474F");
 
-        layout.setFlexBasis("300px", component1, component2, component3);
+        layout.setFlexBasis("500px", component1, component2, component3);
         layout.add(component1, component2, component3);
         // end-source-example
 
