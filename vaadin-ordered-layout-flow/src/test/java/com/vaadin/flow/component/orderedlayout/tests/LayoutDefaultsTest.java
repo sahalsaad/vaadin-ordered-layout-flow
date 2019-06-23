@@ -77,6 +77,22 @@ public class LayoutDefaultsTest {
                 verticalLayout.getChildren());
     }
 
+    @Test
+    public void testFlexLayout_setAndRemoveAlignContent() {
+        FlexLayout layout = new FlexLayout();
+        FlexLayout.ContentAlignment contentAlignment =
+                FlexLayout.ContentAlignment.CENTER;
+        layout.setAlignContent(contentAlignment);
+
+        Assert.assertTrue("should set align-content",
+                layout.getElement().getStyle().get("align-content")
+                        .equalsIgnoreCase(contentAlignment.toString()));
+
+        layout.setAlignContent(null);
+        Assert.assertNull("should remove align-content",
+                layout.getElement().getStyle().get("align-content"));
+    }
+
     private void testExpandableComponent(String size,
             Stream<Component> components) {
         Assert.assertEquals(size, "100%");
