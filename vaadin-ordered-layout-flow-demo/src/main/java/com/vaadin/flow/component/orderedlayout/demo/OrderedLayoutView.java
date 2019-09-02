@@ -147,13 +147,13 @@ public class OrderedLayoutView extends AbstractLayout {
 
         Div buttons = new Div();
         buttons.add(createFlexDirectionButton(layout, "direction-column-button",
-                FlexComponent.FlexDirection.COLUMN));
+                FlexLayout.FlexDirection.COLUMN));
         buttons.add(createFlexDirectionButton(layout, "direction-column-reverse-button",
-                FlexComponent.FlexDirection.COLUMN_REVERSE));
+                FlexLayout.FlexDirection.COLUMN_REVERSE));
         buttons.add(createFlexDirectionButton(layout, "direction-row-button",
-                FlexComponent.FlexDirection.ROW));
+                FlexLayout.FlexDirection.ROW));
         buttons.add(createFlexDirectionButton(layout, "direction-row-reverse-button",
-                FlexComponent.FlexDirection.ROW_REVERSE));
+                FlexLayout.FlexDirection.ROW_REVERSE));
 
         layout.setId("flex-layout-with-flex-direction");
 
