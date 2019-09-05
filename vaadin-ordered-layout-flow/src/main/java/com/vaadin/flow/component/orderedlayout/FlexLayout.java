@@ -271,11 +271,11 @@ public class FlexLayout extends Component
      * The flex basis property specifies the initial main size of a component.
      *
      * @param width
-     *            the width for the components
+     *            the width for the components.
+     *            Setting <code>null</code> will remove the flex basis property
      * @param elementContainers
      *            the containers (components) to apply the flex basis
-     *            property. Setting <code>null</code> will remove the flex
-     *            basis property
+     *            property
      */
     public void setFlexBasis(String width,
                                      HasElement... elementContainers) {
@@ -310,8 +310,11 @@ public class FlexLayout extends Component
      * The flex direction property specifies how components are placed in the
      * layout defining the main axis and the direction (normal or reversed).
      *
+     * The default direction is {@link FlexDirection#ROW}.
+     *
      * @param flexDirection
-     *            the direction for the components
+     *            the direction for the components.
+     *            Setting <code>null</code> will remove the flex direction property
      */
     public void setFlexDirection(FlexDirection flexDirection) {
         if (flexDirection == null) {
@@ -345,6 +348,8 @@ public class FlexLayout extends Component
      *
      * Negative values are not allowed.
      *
+     * The default value is 1.
+     *
      * @param flexShrink
      *            how much the component will shrink relative to the rest
      *            of the components
@@ -370,7 +375,7 @@ public class FlexLayout extends Component
      *
      * @param elementContainer
      *            the element container to read the flex shrink property from
-     * @return the flex shrink property
+     * @return the flex shrink property, or 1 if none was set
      */
     public double getFlexShrink(HasElement elementContainer) {
         String ratio = elementContainer.getElement().getStyle()
@@ -392,7 +397,7 @@ public class FlexLayout extends Component
      * property specifies the order of a component relative to the
      * rest of the components inside the same layout.
      *
-     * Setting the order property value to 0 removes the order of the element container.
+     * The default value is 0.
      *
      * @param order
      *            the order for the component
@@ -400,10 +405,6 @@ public class FlexLayout extends Component
      *            the container (component) to apply the order property
      */
     public void setOrder(int order, HasElement elementContainer) {
-        if (order == 0) {
-            elementContainer.getElement().getStyle().remove(
-                    FlexConstants.ORDER_CSS_PROPERTY);
-        }
         elementContainer.getElement().getStyle().set(
                 FlexConstants.ORDER_CSS_PROPERTY,
                 String.valueOf(order));

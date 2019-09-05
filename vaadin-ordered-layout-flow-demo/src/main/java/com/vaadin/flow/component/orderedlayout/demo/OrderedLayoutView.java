@@ -19,6 +19,7 @@ import com.vaadin.flow.component.Component;
 import com.vaadin.flow.component.html.Div;
 import com.vaadin.flow.component.html.H3;
 import com.vaadin.flow.component.html.Label;
+import com.vaadin.flow.component.html.NativeButton;
 import com.vaadin.flow.component.orderedlayout.BoxSizing;
 import com.vaadin.flow.component.orderedlayout.FlexComponent;
 import com.vaadin.flow.component.orderedlayout.FlexLayout;
@@ -27,6 +28,8 @@ import com.vaadin.flow.component.orderedlayout.VerticalLayout;
 import com.vaadin.flow.router.BeforeEvent;
 import com.vaadin.flow.router.OptionalParameter;
 import com.vaadin.flow.router.Route;
+
+import java.util.stream.Stream;
 
 /**
  * View for the orderred layouts {@link HorizontalLayout} and
@@ -82,21 +85,16 @@ public class OrderedLayoutView extends AbstractLayout {
         Component component3 = createComponent(3, "#37474F");
 
         layout.add(component1, component2, component3);
-        // end-source-example
 
         Div buttons = new Div();
-        buttons.add(createAlignmentContentButton(layout, "align-start-button",
-                FlexLayout.ContentAlignment.START));
-        buttons.add(createAlignmentContentButton(layout, "align-end-button",
-                FlexLayout.ContentAlignment.END));
-        buttons.add(createAlignmentContentButton(layout, "align-center-button",
-                FlexLayout.ContentAlignment.CENTER));
-        buttons.add(createAlignmentContentButton(layout, "align-stretch-button",
-                FlexLayout.ContentAlignment.STRETCH));
-        buttons.add(createAlignmentContentButton(layout, "align-space-around-button",
-                FlexLayout.ContentAlignment.SPACE_AROUND));
-        buttons.add(createAlignmentContentButton(layout, "align-space-between-button",
-                FlexLayout.ContentAlignment.SPACE_BETWEEN));
+        Stream.of(FlexLayout.ContentAlignment.values())
+                .forEach(alignment -> {
+                    NativeButton button = new NativeButton(alignment.name());
+                    button.addClickListener(event -> layout
+                            .setAlignContent(alignment));
+                    buttons.add(button);
+                });
+        // end-source-example
 
         layout.setId("flex-layout-with-alignment-content");
 
@@ -117,12 +115,16 @@ public class OrderedLayoutView extends AbstractLayout {
         Component component3 = createComponent(3, "#37474F");
 
         layout.add(component1, component2, component3);
-        // end-source-example
 
         Div buttons = new Div();
-        buttons.add(createFlexBasisButton(layout, "pixel-size-button", "200px", component1));
-        buttons.add(createFlexBasisButton(layout, "percentage-size-button", "100%", component1));
-        buttons.add(createFlexBasisButton(layout, "auto-button", "auto", component1));
+        String[] widths = {"200px", "100%", "auto"};
+        Stream.of(widths).forEach(width -> {
+            NativeButton button = new NativeButton(width);
+            button.addClickListener(event -> layout
+                    .setFlexBasis(width, component1));
+            buttons.add(button);
+        });
+        // end-source-example
 
         layout.setId("flex-layout-with-flex-basis");
 
@@ -143,17 +145,15 @@ public class OrderedLayoutView extends AbstractLayout {
         Component component3 = createComponent(3, "#37474F");
 
         layout.add(component1, component2, component3);
-        // end-source-example
 
         Div buttons = new Div();
-        buttons.add(createFlexDirectionButton(layout, "direction-column-button",
-                FlexLayout.FlexDirection.COLUMN));
-        buttons.add(createFlexDirectionButton(layout, "direction-column-reverse-button",
-                FlexLayout.FlexDirection.COLUMN_REVERSE));
-        buttons.add(createFlexDirectionButton(layout, "direction-row-button",
-                FlexLayout.FlexDirection.ROW));
-        buttons.add(createFlexDirectionButton(layout, "direction-row-reverse-button",
-                FlexLayout.FlexDirection.ROW_REVERSE));
+        Stream.of(FlexLayout.FlexDirection.values()).forEach(direction -> {
+            NativeButton button = new NativeButton(direction.name());
+            button.addClickListener(event -> layout
+                    .setFlexDirection(direction));
+            buttons.add(button);
+        });
+        // end-source-example
 
         layout.setId("flex-layout-with-flex-direction");
 
@@ -175,12 +175,16 @@ public class OrderedLayoutView extends AbstractLayout {
 
         layout.setFlexBasis("500px", component1, component2, component3);
         layout.add(component1, component2, component3);
-        // end-source-example
 
         Div buttons = new Div();
-        buttons.add(createFlexShrinkButton(layout, "shrink-zero-button", 0, component1));
-        buttons.add(createFlexShrinkButton(layout, "shrink-one-button", 1, component1));
-        buttons.add(createFlexShrinkButton(layout, "shrink-two-button", 2, component1));
+        Integer[] shrinkValues = {0, 1, 2};
+        Stream.of(shrinkValues).forEach(shrink -> {
+            NativeButton button = new NativeButton(String.valueOf(shrink));
+            button.addClickListener(event -> layout
+                    .setFlexShrink(shrink, component1));
+            buttons.add(button);
+        });
+        // end-source-example
 
         layout.setId("flex-layout-with-flex-shrink");
 
