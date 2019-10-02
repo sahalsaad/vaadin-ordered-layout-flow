@@ -397,7 +397,8 @@ public class FlexLayout extends Component
      * property specifies the order of a component relative to the
      * rest of the components inside the same layout.
      *
-     * The default value is 0.
+     * The default value is 0, and setting 0 can be used to remove an existing
+     * order for a component.
      *
      * @param order
      *            the order for the component
@@ -405,6 +406,10 @@ public class FlexLayout extends Component
      *            the container (component) to apply the order property
      */
     public void setOrder(int order, HasElement elementContainer) {
+        if (order == 0) {
+            elementContainer.getElement().getStyle().remove(
+                    FlexConstants.ORDER_CSS_PROPERTY);
+        }
         elementContainer.getElement().getStyle().set(
                 FlexConstants.ORDER_CSS_PROPERTY,
                 String.valueOf(order));
